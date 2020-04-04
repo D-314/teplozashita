@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     //    connect(this, SIGNAL(mouseMove(QMouseEvent*)), this,SLOT(showPointToolTip(QMouseEvent*)));
 
     QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);
-    dateTicker->setDateTimeFormat("dd.MM.yyyy");
+    dateTicker->setDateTimeFormat("dd.MM\nyyyy");
     ui->customPlot_temp->xAxis->setTicker(dateTicker);
 }
 
@@ -36,7 +36,6 @@ float MainWindow::dispersion(QVector<float> X, QVector<float> P) // функци
         for (unsigned int i = 0; i < N; ++i) {
             Dispersion+=powf(X.at(i)-Mean,2)*P.at(i);
         }
-        Dispersion/=X.size();
     }
     return Dispersion;
 }
@@ -53,7 +52,6 @@ float MainWindow::mean(QVector<float> X, QVector<float> P) // функция д�
         for (unsigned int i = 0; i < N; ++i) {
             Mean+=X.at(i)*P.at(i);
         }
-        Mean/=N;
     }
     return Mean;
 }
@@ -79,7 +77,7 @@ void MainWindow::prob_mass_func(QVector<float> X)
     for (short int i = TEMP_MIN; i < TEMP_MAX; ++i) {
         if (PMF.find(i) != PMF.end()) {
             P[0].append(i);
-            P[1].append((float)PMF[i]/(float)PMF.size());
+            P[1].append((float)PMF[i]/(float)X.size());
         }
     }
 }
