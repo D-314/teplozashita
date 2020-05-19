@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QDate>
+#include "temperature_data.h"
+#include <QXmlStreamReader>
+#include <QStack>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,14 +20,22 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_load_temp_clicked();
+//    void on_pushButton_load_temp_clicked();
+
+//    void on_pushButton_calculate_PMF_clicked();
+
+    void on_action_temperatureHistory_triggered();
+
+    void on_action_consumptionReport_triggered();
+
+    void on_action_clear_triggered();
 
     void on_pushButton_calculate_PMF_clicked();
 
 private:
     Ui::MainWindow *ui;
 
-    float G(float Q, float dT);
+    temperature_data tempData;
 
     /*математическое ожидание*/
     float mean(QVector<float> X, QVector<float> P);
@@ -33,24 +44,14 @@ private:
     float dispersion(QVector<float> X, QVector<float> P);
 
     /*плотность вероятностей*/
-    void prob_mass_func(QVector<float> X);
-
-    struct Day { //данные за 1 день
-        QDate date; //число
-        float q = 0;
-        float temp_out = 0; //гисметео
-        float temp_ins = 24; //температура в помещении
-        bool read_ok = false; //если параметры считаны успешно?
-    };
-
-    QVector<Day> data; //массив со всеми днями
+    void probMassFunc(QVector<float> X);
 
     QVector<float> P[2]; //глобальные переменные, в которых хранится информация
 
-    QString file_open();
-
-    Day read_string (QString string);
+    QString fileOpen(const QString type);
 
     void onMouseMoveGraph(QMouseEvent* evt);
+
+    void loadStringHistory(const QString string);
 };
 #endif // MAINWINDOW_H

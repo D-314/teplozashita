@@ -14,50 +14,82 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QCustomPlot" name="customPlot_prob_mass_func" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCustomPlot" name="customPlot_temp" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_GT">
+       <attribute name="title">
+        <string>G/dT</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QCustomPlot" name="customPlot_prob_mass_func" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_DT">
+       <attribute name="title">
+        <string>dT/t</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QCustomPlot" name="customPlot_temp" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_load_temp">
+       <widget class="QPushButton" name="pushButton_calculate_PMF">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
-         <string>Gismeteo</string>
+         <string>Построить</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_calculate_PMF">
-        <property name="text">
-         <string>Плотность вероятности</string>
+       <widget class="QSpinBox" name="spinBox_polynomialDegree">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="value">
+         <number>4</number>
+        </property>
+        <property name="displayIntegerBase">
+         <number>10</number>
         </property>
        </widget>
       </item>
@@ -66,6 +98,55 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>414</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_main">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <widget class="QMenu" name="menu_open">
+     <property name="title">
+      <string>Открыть</string>
+     </property>
+     <addaction name="action_temperatureHistory"/>
+     <addaction name="action_consumptionReport"/>
+    </widget>
+    <addaction name="menu_open"/>
+    <addaction name="separator"/>
+    <addaction name="action_clear"/>
+   </widget>
+   <addaction name="menu_main"/>
+  </widget>
+  <action name="action">
+   <property name="text">
+    <string>Открыть архив темпиратуры</string>
+   </property>
+  </action>
+  <action name="action_temperatureHistory">
+   <property name="text">
+    <string>Архив температуры</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="action_consumptionReport">
+   <property name="text">
+    <string>Отчет о потребленной энергии</string>
+   </property>
+  </action>
+  <action name="action_clear">
+   <property name="text">
+    <string>Очистить</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
