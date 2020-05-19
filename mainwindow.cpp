@@ -221,7 +221,7 @@ void MainWindow::on_action_temperatureHistory_triggered()
 /*боролся с XML-ом как мог. в итоге подбором нашел способ считвать нужные значения*/
 void MainWindow::on_action_consumptionReport_triggered()
 {
-    QString file = fileOpen(QString("XML (*.xml);;All files (*.*)"));
+    QString file = fileOpen(QString("XML/XLS (*.xml *.xls);;All files (*.*)"));
     QXmlStreamReader xmlReader;
     xmlReader.addData(file);
     file.clear(); file.~QString();
@@ -304,7 +304,7 @@ void MainWindow::on_pushButton_calculate_PMF_clicked()
     }
     int polinom = ui->spinBox_polynomialDegree->value();
 
-    x.remove(0); y.remove(0);
+    x.remove(0); y.remove(0); //костыль, убирающий нулевую тучку в начале массива
 
     std::vector<double> averageX, averageY;
     for (int i = 0; i <= polinom;i++) {
@@ -328,6 +328,8 @@ void MainWindow::on_pushButton_calculate_PMF_clicked()
         ui->customPlot_prob_mass_func->graph(1)->addData(i, approx.calculate(i));
     }
     qDebug() << x << y;
+
+    qDebug() << averageX << averageY;
     ui->customPlot_prob_mass_func->rescaleAxes();
     ui->customPlot_prob_mass_func->replot();
 }
